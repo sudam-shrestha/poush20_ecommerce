@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('contact');
             $table->rememberToken();
             $table->timestamps();
-        });
+        }); 
     }
 
     /**
