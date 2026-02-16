@@ -122,7 +122,7 @@
             </div>
 
             <p style="text-align: center;">
-                <a href="{{ url('/seller/login') }}" class="button">
+                <a href="{{ url('/seller/login') }}" style="color: white;" class="button">
                     Login to Your Seller Dashboard
                 </a>
             </p>
