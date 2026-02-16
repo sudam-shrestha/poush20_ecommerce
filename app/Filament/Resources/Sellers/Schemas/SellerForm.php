@@ -21,6 +21,7 @@ class SellerForm
                     ->required(),
                 TextInput::make('password')
                     ->password()
+                    ->hiddenOn('edit')
                     ->default(null),
                 TextInput::make('shop_name')
                     ->required(),

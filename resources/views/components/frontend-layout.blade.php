@@ -33,6 +33,7 @@
 </head>
 
 <body class="antialiased">
+    @include('sweetalert::alert')
 
     <x-frontend-header />
 

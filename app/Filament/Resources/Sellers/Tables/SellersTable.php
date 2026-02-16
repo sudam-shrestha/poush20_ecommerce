@@ -18,10 +18,9 @@ class SellersTable
                     ->searchable(),
                 TextColumn::make('email')
                     ->label('Email address')
+                    ->copyable()
                     ->searchable(),
                 TextColumn::make('shop_name')
-                    ->searchable(),
-                TextColumn::make('khalti_secret_key')
                     ->searchable(),
                 TextColumn::make('status')
                     ->badge(),
@@ -29,6 +28,7 @@ class SellersTable
                     ->date()
                     ->sortable(),
                 TextColumn::make('contact')
+                    ->copyable()
                     ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()
