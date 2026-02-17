@@ -3,12 +3,31 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
     public function home()
     {
-        return view('frontend.home');
+        $products = Product::where('stock', true)->limit(4)->get();
+        return view('frontend.home', compact('products'));
+    }
+
+    public function product($id)
+    {
+        $product = Product::find($id);
+        return view('frontend.product', compact('product'));
+    }
+
+    public function products(Request $request)
+    {
+        $q = $request->q;
+        if ($q) {
+            $products = Product::where('stock', true)->where('name', 'like', '%' . $q . '%')->get();
+            return view('frontend.products', compact('products'));
+        }
+        $products = Product::where('stock', true)->get();
+        return view('frontend.products', compact('products'));
     }
 }

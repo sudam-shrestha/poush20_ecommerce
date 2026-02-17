@@ -45,7 +45,7 @@
             <h2 class="text-2xl md:text-3xl font-bold text-(--primary-color)">
                 <i class="fa-regular fa-star mr-2 text-(--secondary-color)"></i>Trending now
             </h2>
-            <a href="#"
+            <a href="{{route('products')}}"
                 class="text-(--secondary-color) hover:underline flex items-center gap-1 text-sm md:text-base">
                 View all <i class="fa-solid fa-arrow-right"></i>
             </a>
@@ -53,14 +53,9 @@
 
         <!-- Card grid: responsive (1 on mobile, 2-4 on larger) -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <x-product-card />
-            <x-product-card />
-            <x-product-card />
-            <x-product-card />
-            <x-product-card />
-            <x-product-card />
-            <x-product-card />
-            <x-product-card />
+            @foreach ($products as $product)
+                <x-product-card :product="$product"/>
+            @endforeach
         </div>
     </section>
 
@@ -88,7 +83,8 @@
             </div>
 
             <!-- seller registration form (name, email, shop_name, contact) -->
-            <form action="{{route('seller.request')}}" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-5 gap-y-5">
+            <form action="{{ route('seller.request') }}" method="POST"
+                class="grid grid-cols-1 md:grid-cols-2 gap-5 gap-y-5">
                 @csrf
                 <!-- full name field (first row, spans full width on mobile, single on md) -->
                 <div class="md:col-span-2">
@@ -165,12 +161,12 @@
         <!-- extra bottom illustration / brand strip (optional) -->
         <div
             class="bg-(--bg-color)/50 px-6 py-3 flex flex-wrap items-center justify-between text-xs text-(--primary-color) border-t border-(--primary-color)/10">
-            <span class="flex items-center gap-1"><i
-                    class="fa-solid fa-circle-check text-(--secondary-color)"></i> No joining fee</span>
-            <span class="flex items-center gap-1"><i
-                    class="fa-solid fa-circle-check text-(--secondary-color)"></i> 7% commission</span>
-            <span class="flex items-center gap-1"><i
-                    class="fa-solid fa-circle-check text-(--secondary-color)"></i> Payouts twice a
+            <span class="flex items-center gap-1"><i class="fa-solid fa-circle-check text-(--secondary-color)"></i> No
+                joining fee</span>
+            <span class="flex items-center gap-1"><i class="fa-solid fa-circle-check text-(--secondary-color)"></i> 7%
+                commission</span>
+            <span class="flex items-center gap-1"><i class="fa-solid fa-circle-check text-(--secondary-color)"></i>
+                Payouts twice a
                 month</span>
         </div>
     </section>

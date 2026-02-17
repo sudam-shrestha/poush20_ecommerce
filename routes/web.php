@@ -15,6 +15,10 @@ Route::get("/", [PageController::class, "home"])->name("home");
 
 Route::post("/seller/request", [SellerController::class, "seller_request"])->name("seller.request");
 
+Route::get("/products", [PageController::class, "products"])->name("products");
+Route::get("/product/{id}", [PageController::class, "product"])->name("product");
+
+
 // Route::get('/test-mail', function () {
 //     Mail::to("codeit.np@gmail.com")->send(new SellerApprovalMail());
 //     return "email sent successfully.";
