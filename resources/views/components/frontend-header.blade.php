@@ -1,7 +1,7 @@
  <header class="border-b border-(--primary-color)/20 shadow-sm bg-white/80 backdrop-blur-sm sticky top-0 z-10">
      <div class="container mx-auto flex items-center justify-between py-3 md:py-4 flex-wrap gap-y-2">
          <!-- Logo & brand -->
-         <a href="{{route('home')}}" class="flex items-center gap-1">
+         <a href="{{ route('home') }}" class="flex items-center gap-1">
              <i class="fa-solid fa-bag-shopping text-2xl"></i>
              <span class="font-bold text-xl tracking-tight text-(--primary-color)">Eco<span
                      class="text-(--secondary-color)">Cart</span></span>
@@ -18,7 +18,7 @@
 
              <!-- Search form (inline) -->
              <div class="relative hidden sm:block">
-                 <form action="{{route('products')}}" method="GET" class="flex items-center">
+                 <form action="{{ route('products') }}" method="GET" class="flex items-center">
                      <input type="text" placeholder="Search..." name="q"
                          class="py-1.5 pl-3 pr-8 rounded-full text-sm border border-(--primary-color)/30 focus:outline-none focus:ring-2 focus:ring-(--secondary-color)/50 w-36 md:w-48 bg-white/90">
                      <button type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 text-(--primary-color)">
@@ -28,11 +28,17 @@
              </div>
 
              <!-- Login button (uses secondary as accent) -->
-             <a href="#"
-                 class="flex items-center gap-1.5 bg-(--primary-color) text-white px-4 py-1.5 rounded-full text-sm font-medium hover:bg-(--secondary-color) transition-colors shadow-sm">
-                 <i class="fa-regular fa-circle-user"></i>
-                 <span>Login</span>
-             </a>
+             @if (Auth::guard('web')->user())
+                 <a href="">
+                     Cart
+                 </a>
+             @else
+                 <a href="{{ route('login') }}"
+                     class="flex items-center gap-1.5 bg-(--primary-color) text-white px-4 py-1.5 rounded-full text-sm font-medium hover:bg-(--secondary-color) transition-colors shadow-sm">
+                     <i class="fa-regular fa-circle-user"></i>
+                     <span>Login</span>
+                 </a>
+             @endif
 
              <!-- mobile search icon (visible only on smallest) -->
              <button class="sm:hidden text-(--primary-color) text-xl" aria-label="search">
