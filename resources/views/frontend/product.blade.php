@@ -37,8 +37,10 @@
                                 <!-- limit thumbnails for cleanliness -->
                                 <button type="button"
                                     class="variant-thumb rounded-lg overflow-hidden border-2 border-transparent hover:border-(--secondary-color) transition focus:outline-none focus:border-(--secondary-color)"
-                                    data-main-img="{{ asset(Storage::url($img)) }}" data-varient-id="{{ $varient->id }}">
-                                    <img src="{{ asset(Storage::url($img)) }}" alt="Thumbnail" class="w-full h-20 object-cover">
+                                    data-main-img="{{ asset(Storage::url($img)) }}"
+                                    data-varient-id="{{ $varient->id }}">
+                                    <img src="{{ asset(Storage::url($img)) }}" alt="Thumbnail"
+                                        class="w-full h-20 object-cover">
                                 </button>
                             @endif
                         @endforeach
@@ -91,27 +93,35 @@
                 <div class="space-y-6">
                     <h3 class="text-xl font-semibold text-(--primary-color)">Select Variant</h3>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        @foreach ($product->product_varients as $varient)
-                            <label
-                                class="variant-option relative flex items-center p-4 border rounded-xl cursor-pointer transition hover:border-(--secondary-color) has-[:checked]:border-(--secondary-color) has-[:checked]:bg-(--secondary-color)/5">
-                                <input type="radio" name="varient_id" value="{{ $varient->id }}"
-                                    class="absolute inset-0 opacity-0 cursor-pointer"
-                                    {{ $loop->first ? 'checked' : '' }}>
-                                <div class="flex-1">
-                                    <div class="font-medium">{{ $varient->title }}</div>
-                                    <div class="text-sm text-(--secondary-color) mt-1">
-                                        Rs. {{ number_format($varient->price, 2) }}
+                    <form id="cart_form" action="{{ route('cart.store') }}" method="post">
+                        @csrf
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            @foreach ($product->product_varients as $varient)
+                                <label
+                                    class="variant-option relative flex items-center p-4 border rounded-xl cursor-pointer transition hover:border-(--secondary-color) has-[:checked]:border-(--secondary-color) has-[:checked]:bg-(--secondary-color)/5">
+                                    <input type="radio" name="varient_id" value="{{ $varient->id }}"
+                                        class="absolute inset-0 opacity-0 cursor-pointer"
+                                        {{ $loop->first ? 'checked' : '' }}>
+                                    <div class="flex-1">
+                                        <div class="font-medium">{{ $varient->title }}</div>
+                                        <div class="text-sm text-(--secondary-color) mt-1">
+                                            Rs. {{ number_format($varient->price, 2) }}
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 ml-4">
-                                    <img src="{{ asset(Storage::url($varient->images[0])) }}"
-                                        alt="{{ $varient->title }}" class="w-full h-full object-cover">
-                                </div>
-                            </label>
-                        @endforeach
-                    </div>
+                                    <div class="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 ml-4">
+                                        <img src="{{ asset(Storage::url($varient->images[0])) }}"
+                                            alt="{{ $varient->title }}" class="w-full h-full object-cover">
+                                    </div>
+                                </label>
+                            @endforeach
+                        </div>
+                    </form>
                 </div>
+            @else
+                <form id="cart_form" action="{{ route('cart.store') }}" method="post">
+                    @csrf
+                    <input type="hidden" name="varient_id" value="{{ $product->product_varients->first()->id }}">
+                </form>
             @endif
 
             <!-- Description -->
@@ -122,7 +132,7 @@
 
             <!-- Action Buttons -->
             <div class="flex flex-wrap gap-4 pt-6 border-t border-(--primary-color)/10">
-                <button
+                <button type="submit" form="cart_form"
                     class="flex-1 bg-(--primary-color) hover:bg-(--primary-color)/90 text-white font-semibold py-4 px-8 rounded-xl transition shadow-md flex items-center justify-center gap-3 min-w-[180px]"
                     {{ !$product->stock ? 'disabled' : '' }}>
                     <i class="fa-solid fa-cart-plus"></i>

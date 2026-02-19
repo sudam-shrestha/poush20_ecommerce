@@ -29,8 +29,8 @@
 
              <!-- Login button (uses secondary as accent) -->
              @if (Auth::guard('web')->user())
-                 <a href="">
-                     Cart
+                 <a href="{{route('carts')}}">
+                     Cart ({{ Auth::guard('web')->user()->carts()->count() }})
                  </a>
              @else
                  <a href="{{ route('login') }}"

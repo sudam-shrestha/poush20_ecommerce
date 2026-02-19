@@ -24,4 +24,9 @@ class ProductVarient extends Model
     {
         return $this->hasMany(OrderItem::class);
     }
+
+    public function discounted_price()
+    {
+        return $this->price - ($this->price * $this->product->discount / 100);
+    }
 }
