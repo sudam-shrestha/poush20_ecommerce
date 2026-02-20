@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->enum('status',['pending','processing','delivered','cancelled'])->default('pending');
+            $table->enum('status', ['pending', 'processing', 'delivered', 'cancelled'])->default('pending');
             $table->string('payment_status')->default('pending');
             $table->double('total_amount');
+            $table->enum('payment_method', ["cod", "khalti"]);
             $table->foreignId('user_id')->constained('users')->cascadeOnDelete();
             $table->foreignId('seller_id')->constained('sellers')->cascadeOnDelete();
             $table->timestamps();

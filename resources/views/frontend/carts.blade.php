@@ -21,7 +21,7 @@
                     Looks like you haven't added anything yet. Start shopping now!
                 </p>
                 <a href="{{ route('home') }}"
-                   class="inline-block bg-(--primary-color) text-white font-semibold py-4 px-10 rounded-xl hover:bg-(--primary-color)/90 transition">
+                    class="inline-block bg-(--primary-color) text-white font-semibold py-4 px-10 rounded-xl hover:bg-(--primary-color)/90 transition">
                     Continue Shopping
                 </a>
             </div>
@@ -68,12 +68,14 @@
 
                             <div class="p-5 md:p-6 flex flex-col sm:flex-row gap-5 hover:bg-gray-50/50 transition">
                                 <!-- Image -->
-                                <div class="w-28 h-28 sm:w-32 sm:h-32 flex-shrink-0 rounded-xl overflow-hidden bg-gray-50 border border-(--text-color)/10">
+                                <div
+                                    class="w-28 h-28 sm:w-32 sm:h-32 flex-shrink-0 rounded-xl overflow-hidden bg-gray-50 border border-(--text-color)/10">
                                     @if ($mainImage)
                                         <img src="{{ asset(Storage::url($mainImage)) }}" alt="{{ $product->name }}"
-                                             class="w-full h-full object-cover">
+                                            class="w-full h-full object-cover">
                                     @else
-                                        <div class="w-full h-full flex items-center justify-center text-(--text-color)/40">
+                                        <div
+                                            class="w-full h-full flex items-center justify-center text-(--text-color)/40">
                                             <i class="fa-solid fa-image text-3xl"></i>
                                         </div>
                                     @endif
@@ -111,7 +113,8 @@
 
                                     <!-- Actions -->
                                     <div class="flex flex-wrap gap-4 text-sm">
-                                        <form action="{{ route('cart.update', $cart->id) }}" method="POST" class="inline">
+                                        <form action="{{ route('cart.update', $cart->id) }}" method="POST"
+                                            class="inline">
                                             @csrf
                                             @method('PATCH')
                                             <button type="submit" name="action" value="increment"
@@ -120,7 +123,8 @@
                                             </button>
                                         </form>
 
-                                        <form action="{{ route('cart.update', $cart->id) }}" method="POST" class="inline">
+                                        <form action="{{ route('cart.update', $cart->id) }}" method="POST"
+                                            class="inline">
                                             @csrf
                                             @method('PATCH')
                                             <button type="submit" name="action" value="decrement"
@@ -129,7 +133,8 @@
                                             </button>
                                         </form>
 
-                                        <form action="{{ route('cart.destroy', $cart->id) }}" method="POST" class="inline">
+                                        <form action="{{ route('cart.destroy', $cart->id) }}" method="POST"
+                                            class="inline">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="text-red-600 hover:text-red-700">
@@ -147,7 +152,8 @@
                                         </div>
                                         @if ($cart->qty > 1)
                                             <div class="text-xs text-(--text-color)/60">
-                                                {{ $cart->qty }} × Rs. {{ number_format($cart->product_varient->discounted_price(), 2) }}
+                                                {{ $cart->qty }} × Rs.
+                                                {{ number_format($cart->product_varient->discounted_price(), 2) }}
                                             </div>
                                         @endif
                                     </div>
@@ -157,15 +163,12 @@
                     </div>
 
                     <!-- Per-seller Checkout Button -->
-                    <div class="p-6 border-t border-(--primary-color)/10 bg-gray-50/40">
-                        <form action="{{ route('checkout', $seller_id) }}" method="POST" class="text-right">
-                            @csrf
-                            <button type="submit"
-                                    class="inline-flex items-center bg-(--secondary-color) hover:bg-(--secondary-color)/90 text-white font-semibold py-3 px-8 rounded-xl transition shadow-md gap-3">
-                                <i class="fa-solid fa-credit-card"></i>
-                                Checkout from {{ $sellerName }}
-                            </button>
-                        </form>
+                    <div class="p-6 text-right border-t border-(--primary-color)/10 bg-gray-50/40">
+                        <a href="{{ route('checkout', $seller_id) }}" type="submit"
+                            class="inline-flex items-center bg-(--secondary-color) hover:bg-(--secondary-color)/90 text-white font-semibold py-3 px-8 rounded-xl transition shadow-md gap-3">
+                            <i class="fa-solid fa-credit-card"></i>
+                            Checkout from {{ $sellerName }}
+                        </a>
                     </div>
                 </div>
             @endforeach
@@ -185,7 +188,7 @@
 
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
                     <a href="{{ route('home') }}"
-                       class="flex-1 max-w-sm text-center py-4 px-8 border-2 border-(--primary-color) text-(--primary-color) font-semibold rounded-xl hover:bg-(--primary-color)/5 transition">
+                        class="flex-1 max-w-sm text-center py-4 px-8 border-2 border-(--primary-color) text-(--primary-color) font-semibold rounded-xl hover:bg-(--primary-color)/5 transition">
                         Continue Shopping
                     </a>
                 </div>

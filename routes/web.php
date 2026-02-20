@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Frontend\AuthController;
 use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\Frontend\PageController;
 use App\Http\Controllers\Frontend\SellerController;
 use App\Mail\SellerApprovalMail;
@@ -31,7 +32,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/cart/store', [CartController::class, 'store'])->name("cart.store");
     Route::get('/carts', [CartController::class, 'index'])->name("carts");
 
-    Route::get('/checkout/{id}', [CartController::class, 'checkout'])->name("checkout");
+    Route::get('/checkout/{id}', [OrderController::class, 'checkout'])->name("checkout");
+    Route::post('/order/store/{id}', [OrderController::class, 'store'])->name("order.store");
+
+    Route::get('/khalti/callback/{id}', [OrderController::class, 'khalti_callback'])->name("khalti.callback");
 
 });
 
