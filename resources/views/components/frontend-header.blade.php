@@ -29,9 +29,31 @@
 
              <!-- Login button (uses secondary as accent) -->
              @if (Auth::guard('web')->user())
-                 <a href="{{route('carts')}}">
-                     Cart ({{ Auth::guard('web')->user()->carts()->count() }})
-                 </a>
+                 <button id="profileButton" data-dropdown-toggle="profile"
+                     class="flex items-center"
+                     type="button">
+                     <i class="fa-solid fa-circle-user"></i>
+                     <svg class="w-4 h-4 ms-1.5 -me-0.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                         width="24" height="24" fill="none" viewBox="0 0 24 24">
+                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                             d="m19 9-7 7-7-7" />
+                     </svg>
+                 </button>
+
+                 <!-- Dropdown menu -->
+                 <div id="profile"
+                     class="z-10 hidden bg-neutral-primary-medium border border-default-medium rounded-base shadow-lg w-44">
+                     <ul class="p-2 text-sm text-body font-medium" aria-labelledby="profileButton">
+                         <li>
+                             <a href="{{ route('carts') }}"
+                                 class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">Cart ({{ Auth::guard('web')->user()->carts()->count() }})</a>
+                         </li>
+                         <li>
+                             <a href="{{ route('orders') }}"
+                                 class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">Orders</a>
+                         </li>
+                     </ul>
+                 </div>
              @else
                  <a href="{{ route('login') }}"
                      class="flex items-center gap-1.5 bg-(--primary-color) text-white px-4 py-1.5 rounded-full text-sm font-medium hover:bg-(--secondary-color) transition-colors shadow-sm">

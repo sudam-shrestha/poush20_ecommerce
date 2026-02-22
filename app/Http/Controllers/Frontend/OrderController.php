@@ -14,12 +14,28 @@ use Illuminate\Support\Facades\Http;
 
 class OrderController extends Controller
 {
+    public function index()
+    {
+        $user = Auth::guard('web')->user();
+        $orders = Order::where("user_id", $user->id)->latest()->get();
+        return view('frontend.orders', compact('orders'));
+    }
+
     public function checkout($id)
     {
         $seller = Seller::findOrFail($id);
         $user = Auth::guard('web')->user();
         $carts = Cart::where("user_id", $user->id)->where("seller_id", $id)->get();
         return view('frontend.checkout', compact('seller', 'carts'));
+    }
+
+    public function cancel($id)
+    {
+        $order = Order::findOrFail($id);
+        $order->status = "cancelled";
+        $order->save();
+        toast('Order cancelled successfully', 'success');
+        return redirect()->route('orders');
     }
 
     public function store(Request $request, $id)
@@ -88,5 +104,11 @@ class OrderController extends Controller
         $message = "Order " . $request["status"] . " successfully";
         toast($message, 'success');
         return redirect()->route('carts');
+    }
+
+    public function details($id)
+    {
+        $order = Order::findOrFail($id);
+        return view('order_details', compact('order'));
     }
 }

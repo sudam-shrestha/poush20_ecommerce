@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
+Route::get("order/details/{id}", [OrderController::class, "details"])->name("order.details");
+
 Route::get("/", [PageController::class, "home"])->name("home");
 
 Route::post("/seller/request", [SellerController::class, "seller_request"])->name("seller.request");
@@ -36,6 +38,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/order/store/{id}', [OrderController::class, 'store'])->name("order.store");
 
     Route::get('/khalti/callback/{id}', [OrderController::class, 'khalti_callback'])->name("khalti.callback");
+
+    Route::get('/orders', [OrderController::class, 'index'])->name("orders");
+    Route::patch('/order/cancel/{id}', [OrderController::class, 'cancel'])->name("order.cancel");
 
 });
 
