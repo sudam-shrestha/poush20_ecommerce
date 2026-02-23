@@ -10,7 +10,7 @@
          <!-- Products link (desktop) + search + login, all in row -->
          <div class="flex items-center gap-4 md:gap-6 flex-wrap justify-end">
              <!-- Products nav -->
-             <a href="#"
+             <a href="{{ route('products') }}"
                  class="font-medium text-(--text-color) hover:text-(--secondary-color) transition flex items-center gap-1">
                  <i class="fa-solid fa-tag text-sm"></i>
                  <span>Products</span>
@@ -29,9 +29,7 @@
 
              <!-- Login button (uses secondary as accent) -->
              @if (Auth::guard('web')->user())
-                 <button id="profileButton" data-dropdown-toggle="profile"
-                     class="flex items-center"
-                     type="button">
+                 <button id="profileButton" data-dropdown-toggle="profile" class="flex items-center" type="button">
                      <i class="fa-solid fa-circle-user"></i>
                      <svg class="w-4 h-4 ms-1.5 -me-0.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                          width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -46,7 +44,8 @@
                      <ul class="p-2 text-sm text-body font-medium" aria-labelledby="profileButton">
                          <li>
                              <a href="{{ route('carts') }}"
-                                 class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">Cart ({{ Auth::guard('web')->user()->carts()->count() }})</a>
+                                 class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">Cart
+                                 ({{ Auth::guard('web')->user()->carts()->count() }})</a>
                          </li>
                          <li>
                              <a href="{{ route('orders') }}"
