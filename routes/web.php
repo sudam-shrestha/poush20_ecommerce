@@ -6,12 +6,14 @@ use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\Frontend\PageController;
 use App\Http\Controllers\Frontend\SellerController;
 use App\Mail\SellerApprovalMail;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/get-products', function () {
+    $response = Http::get("http://127.0.0.1:8000/api/products");
+    return $response;
+});
 
 Route::get("order/details/{id}", [OrderController::class, "details"])->name("order.details");
 

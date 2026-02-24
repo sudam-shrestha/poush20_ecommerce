@@ -1,4 +1,47 @@
 <x-frontend-layout>
+
+    <!-- Welcome / Promo Modal -->
+    <div id="welcomeModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+        <!-- Backdrop -->
+        <div class="fixed inset-0 bg-black/60 backdrop-blur-sm"></div>
+
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden">
+            <!-- Close button -->
+            <button id="closeModalBtn" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 z-10">
+                <i class="fa-solid fa-xmark text-2xl"></i>
+            </button>
+
+            <div class="p-6 md:p-8 text-center">
+                <div
+                    class="mx-auto w-16 h-16 bg-(--primary-color)/10 rounded-full flex items-center justify-center mb-5">
+                    <i class="fa-solid fa-gift text-3xl" style="color: var(--primary-color);"></i>
+                </div>
+
+                <h3 class="text-2xl md:text-3xl font-bold text-(--primary-color) mb-4">
+                    Welcome to the Store!
+                </h3>
+
+                <p class="text-gray-600 mb-6 text-base md:text-lg">
+                    Get <strong class="text-(--secondary-color)">15% OFF</strong> your first order<br>
+                    Use code: <span class="font-semibold bg-gray-100 px-2 py-1 rounded">WELCOME15</span>
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#"
+                        class="bg-(--primary-color) text-white px-7 py-3.5 rounded-xl font-semibold hover:bg-(--secondary-color) transition shadow-md">
+                        Shop Now
+                    </a>
+                    <button id="closeModalBtn2"
+                        class="border-2 border-(--primary-color) text-(--primary-color) px-7 py-3.5 rounded-xl font-semibold hover:bg-(--primary-color)/10 transition">
+                        Maybe Later
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <section class="relative rounded-3xl overflow-hidden my-12 md:my-16 shadow-xl">
         <!-- background gradient with secondary/primary -->
         <div class="absolute inset-0 bg-gradient-to-r from-(--primary-color) to-(--secondary-color) opacity-90">
@@ -45,7 +88,7 @@
             <h2 class="text-2xl md:text-3xl font-bold text-(--primary-color)">
                 <i class="fa-regular fa-star mr-2 text-(--secondary-color)"></i>Trending now
             </h2>
-            <a href="{{route('products')}}"
+            <a href="{{ route('products') }}"
                 class="text-(--secondary-color) hover:underline flex items-center gap-1 text-sm md:text-base">
                 View all <i class="fa-solid fa-arrow-right"></i>
             </a>
@@ -54,7 +97,7 @@
         <!-- Card grid: responsive (1 on mobile, 2-4 on larger) -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             @foreach ($products as $product)
-                <x-product-card :product="$product"/>
+                <x-product-card :product="$product" />
             @endforeach
         </div>
     </section>
@@ -170,4 +213,52 @@
                 month</span>
         </div>
     </section>
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('welcomeModal');
+            const closeButtons = [
+                document.getElementById('closeModalBtn'),
+                document.getElementById('closeModalBtn2')
+            ];
+
+            // Show modal automatically when page loads
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+
+            // Optional: add a slight delay for better visual effect
+            // setTimeout(() => {
+            // modal.classList.remove('hidden');
+            // modal.classList.add('flex');
+            // }, 300);
+
+            // Close when clicking backdrop
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                }
+            });
+
+            // Close when clicking any close button
+            closeButtons.forEach(btn => {
+                if (btn) {
+                    btn.addEventListener('click', function() {
+                        modal.classList.add('hidden');
+                        modal.classList.remove('flex');
+                    });
+                }
+            });
+
+            // Optional: close with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                }
+            });
+        });
+    </script>
 </x-frontend-layout>
