@@ -30,7 +30,7 @@ Route::middleware('unauth')->group(function () {
     Route::get('/google/redirect', [AuthController::class, 'redirect'])->name("google.redirect");
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware('au')->group(function () {
     Route::delete('/cart/delete/{id}', [CartController::class, 'delete'])->name("cart.destroy");
     Route::patch('/cart/update/{id}', [CartController::class, 'update'])->name("cart.update");
     Route::post('/cart/store', [CartController::class, 'store'])->name("cart.store");

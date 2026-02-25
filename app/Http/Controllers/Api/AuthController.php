@@ -34,4 +34,26 @@ class AuthController extends Controller
             ]);
         }
     }
+
+
+    public function login(Request $request)
+    {
+        $user = User::where("email", $request->email)->first();
+
+        if (!$user) {
+            return response()->json([
+                "success" => false,
+                "token" => null,
+                "message" => "Invalid username or password"
+            ]);
+        }
+
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return response()->json([
+            "success" => true,
+            "token" => $token,
+            "message" => "User loggedin successfully"
+        ]);
+    }
 }
